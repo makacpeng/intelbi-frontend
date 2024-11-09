@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { listMyChartByPageUsingPost } from '@/services/intelbi/chartController';
-import { Avatar, Card, List, message, Result } from 'antd';
+import { Avatar, Card, Col, List, message, Result, Row } from 'antd';
 import ReactECharts from 'echarts-for-react';
 import { useModel } from '@@/exports';
 import Search from 'antd/es/input/Search';
@@ -71,7 +71,7 @@ const MyChartPage: React.FC = () => {
       </div>
       <div className="margin-16" />
       <List
-        grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }}
+        grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1 }}
         pagination={{
           onChange: (page, pageSize) => {
             setSearchParams({
@@ -113,10 +113,19 @@ const MyChartPage: React.FC = () => {
                 )}
                 {item.status === 'succeed' && (
                   <>
-                    <div className="margin-16" />
-                    <p>{'分析目标：' + item.goal}</p>
-                    <div className="margin-16" />
-                    <ReactECharts option={JSON.parse(item.genChart ?? '{}')} />
+                    {/*<div className="margin-16" />*/}
+                    {/*<p>{'分析目标：' + item.goal}</p>*/}
+                    {/*<div className="margin-16" />*/}
+                    {/*<p>{'分析结论' + item.genResult}</p>*/}
+                    {/*<ReactECharts option={JSON.parse(item.genChart ?? '{}')} />*/}
+                    <Row>
+                      <Col span={12}>
+                        <Card style={{marginTop: "40px"}}>{item.genResult}</Card>
+                      </Col>
+                      <Col span={12}>
+                        <ReactECharts option={JSON.parse(item.genChart ?? '{}')} />
+                      </Col>
+                    </Row>
                   </>
                 )}
                 {item.status === 'running' && (
